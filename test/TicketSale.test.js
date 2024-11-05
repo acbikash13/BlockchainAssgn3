@@ -10,6 +10,7 @@ let ticketSale;
 beforeEach(async () => {
     // Get a list of all accounts
     accounts = await web3.eth.getAccounts();
+    console.log("Deploying the contract from " + accounts); 
 
     // Deploy the contract
     ticketSale = await new web3.eth.Contract(abi)

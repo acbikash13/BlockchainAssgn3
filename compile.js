@@ -2,10 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const solc = require('solc');
 
-// Path to the Solidity contract
 
-const source = fs.readFileSync('./contracts/TicektSale.sol', 'utf8');
-// Solidity compiler input format
+const ticketSalePath = path.resolve(__dirname, 'contracts', 'TicketSale.sol');
+const source = fs.readFileSync(ticketSalePath, 'utf8');
+
 let input = {
   language: "Solidity",
   sources: {
@@ -22,21 +22,22 @@ let input = {
   },
 };
 
-console.log("Compiling the contract...\n" + input);
+const stringInput=JSON.stringify(input);
 
-// Compile the contract
-const stringInput = JSON.stringify(input);
-const compiledCode = solc.compile(stringInput);
-const output = JSON.parse(compiledCode);
+const compiledCode=solc.compile(stringInput);
 
-// Access the compiled contract
-const contractOutput = output.contracts["TicketSale.sol"];
-const ecommerceOutput = contractOutput.TicketSale; // Match this with the contract name
+const output =JSON.parse(compiledCode);
 
-// Extract ABI and Bytecode
-const ecommerceABI = ecommerceOutput.abi;
-const ecommerceBytecode = ecommerceOutput.evm.bytecode.object;
 
-// Export the ABI and Bytecode for deployment
-module.exports = { "abi": ecommerceABI, "bytecode": ecommerceBytecode.object };
+const contractOutput=output.contracts;
 
+const eComOutput=contractOutput["TicketSale.sol"];
+
+
+const eComABI=eComOutput.TicketSale.abi;
+
+
+const eComBytecode=eComOutput.TicketSale.evm.bytecode;
+
+
+module.exports= {"abi":eComABI,"bytecode":eComBytecode.object};
