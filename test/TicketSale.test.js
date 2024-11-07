@@ -4,29 +4,39 @@ const Web3 = require("web3");
 const web3 = new Web3(ganache.provider());
 const { abi, bytecode } = require("../compile"); // Adjust the path to your compiled contract output
 
+console.log(abi);
+console.log(bytecode);
+
 let accounts;
 let ticketSale;
 
-beforeEach(async () => {
-    // Get a list of all accounts
-    accounts = await web3.eth.getAccounts();
-    console.log("Deploying the contract from " + accounts); 
+beforeEach(function(done) {
 
-    // Deploy the contract
-    ticketSale = await new web3.eth.Contract(abi)
-        .deploy({ data: bytecode, arguments: [100, web3.utils.toWei("0.01", "ether")] })
-        .send({ from: accounts[0],gasPrice: 8000000000, gas: "4700000" });
+    // included the timeout function to increase the time out to 15 seconds. It was throwing a timeout error of 2000ms withut this function
+    this.timeout(15000); // Increase the timeout to 15 seconds
+    // arrow fucntion was giving a timeout ewrror 
+    (async () => {
+        // Get a list of all accounts
+        accounts = await web3.eth.getAccounts();
+        // Deploy the contract. Inside the send function, we have set the gasPrice to 8000000000 and gas to 4700000. Pretty much the same arguments inside the constructor of the Ticket Sale.
+        ticketSale = await new web3.eth.Contract(abi)
+            .deploy({ data: bytecode, arguments: [100, web3.utils.toWei("0.01", "ether")] })
+            .send({ from: accounts[0], gasPrice: 8000000000, gas: "4700000" });
+        
+        done(); // Signal Mocha that async setup is complete
+    })().catch(done); // Catch any errors and pass them to Mocha
 });
+
 
 describe("TicketSale Contract", () => {
     it("deploys a contract", () => {
         assert.ok(ticketSale.options.address); // Test if contract address exists
-    });
+    }).timeout(10000);
 
     it("checks owner", async () => {
         const owner = await ticketSale.methods.owner().call();
         assert.equal(owner, accounts[0], "Owner should be the account that deployed the contract");
-    });
+    }).timeout(10000);
 
     it("allows an account to buy a ticket", async () => {
         await ticketSale.methods.buyTicket(1).send({

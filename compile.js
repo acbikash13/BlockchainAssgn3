@@ -3,8 +3,7 @@ const fs = require('fs');
 const solc = require('solc');
 
 
-const ticketSalePath = path.resolve(__dirname, 'contracts', 'TicketSale.sol');
-const source = fs.readFileSync(ticketSalePath, 'utf8');
+const source = fs.readFileSync('./contracts/TicektSale.sol', 'utf8');
 
 let input = {
   language: "Solidity",

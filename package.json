@@ -1,20 +1,28 @@
 {
-  "name": "assignment3blockchain",
+  "name": "blockchainassgn3",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "��#\u0000 \u0000B\u0000l\u0000o\u0000c\u0000k\u0000c\u0000h\u0000a\u0000i\u0000n\u0000A\u0000s\u0000s\u0000g\u0000n\u00003\u0000\r\u0000 \u0000",
+  "main": "compile.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acbikash13/BlockchainAssgn3.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acbikash13/BlockchainAssgn3/issues"
+  },
+  "homepage": "https://github.com/acbikash13/BlockchainAssgn3#readme",
   "dependencies": {
-    "@truffle/hdwallet-provider": "^2.1.15",
-    "assert": "^8.19.4",
-    "ganache": "^7.9.2",
     "ganache-cli": "^6.12.2",
     "mocha": "^10.7.3",
-    "solc": "^0.8.28",
+    "solc": "^0.8.17",
     "web3": "^1.0.0-beta.26"
   }
 }
