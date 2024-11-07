@@ -1,4 +1,4 @@
-﻿#Bikash Acharya
+﻿# Bikash Acharya
 # Ticket Sale Smart Contract
 
 This project implements a smart contract for managing ticket sales, swaps, and resales. The contract allows users to buy tickets, safely swap tickets with other users, and resell tickets with a 10% service fee, which goes to the contract owner.
